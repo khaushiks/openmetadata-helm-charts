@@ -42,7 +42,7 @@ mysql:
 
 # OpenSearch Helm Dependency
 # you can find more details about this here https://artifacthub.io/packages/helm/opensearch-project-helm-charts/opensearch/2.12.2
-opensearch:
+ opensearch:
   enabled: true
   clusterName: opensearch
   fullnameOverride: opensearch
@@ -60,10 +60,10 @@ opensearch:
   singleNode: true
   resources:
     requests:
-      cpu: "500m"
-      memory: "2Gi"
-    limits:
       cpu: "1000m"
+      memory: "4Gi"
+    limits:
+      cpu: "2000m"
       memory: "4Gi"
   extraEnvs:
     - name: OPENSEARCH_INITIAL_ADMIN_PASSWORD
