@@ -65,6 +65,9 @@ opensearch:
     limits:
       cpu: "500m"
       memory: "1Gi"
+  extraEnvs:
+    - name: OPENSEARCH_INITIAL_ADMIN_PASSWORD
+      value: "Admin@123"  # Use a strong password (min 8 chars, high entropy)
 
 # Airflow configurations for helm dependency
 # you can find more details about this here https://airflow.apache.org/docs/helm-chart/
