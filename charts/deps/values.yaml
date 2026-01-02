@@ -147,7 +147,7 @@ airflow:
   logs:
     persistence:
       enabled: true
-      storageClassName: "default"
+      storageClassName: ""
       size: 1Gi
   # API server needs access to DAGs volume for OpenMetadata dynamic DAG generation
   apiServer:
