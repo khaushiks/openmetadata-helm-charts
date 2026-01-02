@@ -25,6 +25,7 @@ mysql:
     extraFlags: "--sort_buffer_size=10M"
     persistence:
       size: 10Gi  # Reduced for dev
+      storageClass: "default"
     service:
       nodePort: 3306
   initdbScripts:
@@ -50,6 +51,7 @@ opensearch:
   opensearchJavaOpts: "-Xmx1g -Xms1g"
   persistence:
     size: 10Gi  # Reduced for dev
+    storageClass: "default"
   protocol: http
   config:
     opensearch.yml: |
@@ -161,50 +163,15 @@ airflow:
       enabled: true
       storageClassName: "default"
       size: 1Gi
-  # Disable triggerer to save resources
+  # Disable triggerer to save resources (set to false for dev)
   triggerer:
-    enabled: true
-    replicas: 1
-    resources:
-      requests:
-        memory: "256Mi"
-        cpu: "100m"
-  # Mount logs volume to all components
-  scheduler:
-    extraVolumes:
-      - name: logs
-        persistentVolumeClaim:
-          claimName: '{{ include "airflow.fullname" . }}-logs'
-    extraVolumeMounts:
-      - name: logs
-        mountPath: /opt/airflow/logs
-  webserver:
-    extraVolumes:
-      - name: logs
-        persistentVolumeClaim:
-          claimName: '{{ include "airflow.fullname" . }}-logs'
-    extraVolumeMounts:
-      - name: logs
-        mountPath: /opt/airflow/logs
-  workers:
-    extraVolumes:
-      - name: logs
-        persistentVolumeClaim:
-          claimName: '{{ include "airflow.fullname" . }}-logs'
-    extraVolumeMounts:
-      - name: logs
-        mountPath: /opt/airflow/logs
-  # API server needs DAGs volume
+    enabled: false
+  # API server needs DAGs volume for OpenMetadata dynamic DAG generation
   apiServer:
     extraVolumes:
       - name: dags
         persistentVolumeClaim:
           claimName: '{{ include "airflow.fullname" . }}-dags'
-      - name: logs
-        persistentVolumeClaim:
-          claimName: '{{ include "airflow.fullname" . }}-logs'
     extraVolumeMounts:
       - name: dags
         mountPath: /opt/airflow/dags
-      - name: logs
-        mountPath: /opt/airflow/logs
