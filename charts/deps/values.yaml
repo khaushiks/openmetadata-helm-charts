@@ -3,7 +3,7 @@
 # Declare variables to be passed into your templates.
 
 # MySQL configurations for helm dependency
-# you can find more details about this here https://artifacthub.io/packages/helm/bitnami/mysql  
+# you can find more details about this here https://artifacthub.io/packages/helm/bitnami/mysql
 global:
   security:
     allowInsecureImages: true
@@ -40,7 +40,7 @@ mysql:
       commit;
 
 # OpenSearch Helm Dependency
-# you can find more details about this here https://artifacthub.io/packages/helm/opensearch-project-helm-charts/opensearch/2.12.2  
+# you can find more details about this here https://artifacthub.io/packages/helm/opensearch-project-helm-charts/opensearch/2.12.2
 opensearch:
   enabled: true
   clusterName: opensearch
@@ -65,7 +65,7 @@ opensearch:
       memory: "1Gi"
 
 # Airflow configurations for helm dependency
-# you can find more details about this here https://airflow.apache.org/docs/helm-chart/  
+# you can find more details about this here https://airflow.apache.org/docs/helm-chart/
 airflow:
   enabled: true
   # Static secret key for Airflow webserver
@@ -123,27 +123,83 @@ airflow:
         memory: "256Mi"
         cpu: "100m"
       limits:
-        memory: "512"
+        memory: "512Mi"
+        cpu: "200m"
+  statsd:
+    resources:
+      requests:
+        memory: "64Mi"
+        cpu: "50m"
+  redis:
+    enabled: false
+    resources:
+      requests:
+        memory: "64Mi"
+        cpu: "50m"
+  # Disable Flower
+  flower:
+    enabled: false
+  # Configure external MySQL
+  data:
+    metadataConnection:
+      user: airflow_user
+      pass: airflow_pass
+      protocol: mysql
+      host: mysql
+      port: 3306
+      db: airflow_db
+      sslmode: disable
+  # DAGs persistence - MUST use "default" for Azure Disk
   dags:
     persistence:
       enabled: true
       storageClassName: "default"
       size: 1Gi
-
+  # Logs persistence - MUST use "default" for Azure Disk
   logs:
     persistence:
       enabled: true
       storageClassName: "default"
       size: 1Gi
-
+  # Disable triggerer to save resources
+  triggerer:
+    enabled: false
+  # Mount logs volume to all components
+  scheduler:
+    extraVolumes:
+      - name: logs
+        persistentVolumeClaim:
+          claimName: '{{ include "airflow.fullname" . }}-logs'
+    extraVolumeMounts:
+      - name: logs
+        mountPath: /opt/airflow/logs
+  webserver:
+    extraVolumes:
+      - name: logs
+        persistentVolumeClaim:
+          claimName: '{{ include "airflow.fullname" . }}-logs'
+    extraVolumeMounts:
+      - name: logs
+        mountPath: /opt/airflow/logs
+  workers:
+    extraVolumes:
+      - name: logs
+        persistentVolumeClaim:
+          claimName: '{{ include "airflow.fullname" . }}-logs'
+    extraVolumeMounts:
+      - name: logs
+        mountPath: /opt/airflow/logs
+  # API server needs DAGs volume
   apiServer:
     extraVolumes:
       - name: dags
         persistentVolumeClaim:
           claimName: '{{ include "airflow.fullname" . }}-dags'
+      - name: logs
+        persistentVolumeClaim:
+          claimName: '{{ include "airflow.fullname" . }}-logs'
     extraVolumeMounts:
       - name: dags
         mountPath: /opt/airflow/dags
-
-  # ... (rest of config) ...
-  
+      - name: logs
+        mountPath: /opt/airflow/logs
