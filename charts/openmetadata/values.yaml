@@ -468,8 +468,6 @@ extraVolumes:
   - name: logs
     persistentVolumeClaim:
       claimName: openmetadata-dependencies-logs
-# - name: extras
-#   emptyDir: {}
 
 extraVolumeMounts:
   - name: dags
