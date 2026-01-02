@@ -42,13 +42,13 @@ mysql:
 
 # OpenSearch Helm Dependency
 # you can find more details about this here https://artifacthub.io/packages/helm/opensearch-project-helm-charts/opensearch/2.12.2
- opensearch:
+opensearch:
   enabled: true
   clusterName: opensearch
   fullnameOverride: opensearch
   nodeGroup: ""
   imagePullPolicy: Always
-  opensearchJavaOpts: "-Xmx1g -Xms1g"
+  opensearchJavaOpts: "-Xmx2g -Xms2g"  # Match 4Gi container memory
   persistence:
     size: 10Gi  # Reduced for dev
     storageClass: "default"
@@ -67,7 +67,7 @@ mysql:
       memory: "4Gi"
   extraEnvs:
     - name: OPENSEARCH_INITIAL_ADMIN_PASSWORD
-      value: "IXRZqiqBXQSOkSDQ4jL1n2CYPeNQz8IuXNHyQCVsU8="  # Strong random password
+      value: "IXRZqiqBXQSOkSDQ4jL1n2CYPeNQz8IuXNHyQCVsU8="  # Strong random password (no slashes)
 
 # Airflow configurations for helm dependency
 # you can find more details about this here https://airflow.apache.org/docs/helm-chart/
