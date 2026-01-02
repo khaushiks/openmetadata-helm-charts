@@ -109,24 +109,24 @@ airflow:
     replicas: 1
     resources:
       requests:
-        memory: "256Mi"
-        cpu: "100m"
+        memory: "64Mi"
+        cpu: "25m"
       limits:
         memory: "512Mi"
         cpu: "200m"
   scheduler:
     resources:
       requests:
-        memory: "256Mi"
-        cpu: "100m"
+        memory: "64Mi"
+        cpu: "25m"
       limits:
         memory: "512Mi"
         cpu: "200m"
   webserver:
     resources:
       requests:
-        memory: "256Mi"
-        cpu: "100m"
+        memory: "64Mi"
+        cpu: "25m"
       limits:
         memory: "512Mi"
         cpu: "200m"
