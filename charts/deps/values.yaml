@@ -67,7 +67,7 @@ opensearch:
       memory: "1Gi"
   extraEnvs:
     - name: OPENSEARCH_INITIAL_ADMIN_PASSWORD
-      value: "AdMin@123#OpenSearch"  # Use a strong password (min 8 chars, high entropy)
+      value: "OpenMetadata@2026!Secure"  # Use a strong password (min 8 chars, high entropy)
 
 # Airflow configurations for helm dependency
 # you can find more details about this here https://airflow.apache.org/docs/helm-chart/
