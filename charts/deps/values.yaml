@@ -60,14 +60,14 @@ opensearch:
   singleNode: true
   resources:
     requests:
-      cpu: "200m"
-      memory: "512Mi"
-    limits:
       cpu: "500m"
       memory: "1Gi"
+    limits:
+      cpu: "1000m"
+      memory: "2Gi"
   extraEnvs:
     - name: OPENSEARCH_INITIAL_ADMIN_PASSWORD
-      value: "m6xGPn2yXuL1qnQeAnCedUJ6uocOM20KjSWX/YNj5VA="  # Use a strong password (min 8 chars, high entropy)
+      value: "x7Q!mP9@vR2#kL5$vP8!qR5&tY7*uI1("  # Strong random password
 
 # Airflow configurations for helm dependency
 # you can find more details about this here https://airflow.apache.org/docs/helm-chart/
@@ -166,15 +166,45 @@ airflow:
       enabled: true
       storageClassName: "default"
       size: 1Gi
-  # Disable triggerer to save resources (set to false for dev)
+  # Disable triggerer to save resources
   triggerer:
     enabled: false
-  # API server needs DAGs volume for OpenMetadata dynamic DAG generation
+  # Mount logs volume to all components
+  scheduler:
+    extraVolumes:
+      - name: logs
+        persistentVolumeClaim:
+          claimName: '{{ include "airflow.fullname" . }}-logs'
+    extraVolumeMounts:
+      - name: logs
+        mountPath: /opt/airflow/logs
+  webserver:
+    extraVolumes:
+      - name: logs
+        persistentVolumeClaim:
+          claimName: '{{ include "airflow.fullname" . }}-logs'
+    extraVolumeMounts:
+      - name: logs
+        mountPath: /opt/airflow/logs
+  workers:
+    extraVolumes:
+      - name: logs
+        persistentVolumeClaim:
+          claimName: '{{ include "airflow.fullname" . }}-logs'
+    extraVolumeMounts:
+      - name: logs
+        mountPath: /opt/airflow/logs
+  # API server needs DAGs and logs volumes
   apiServer:
     extraVolumes:
       - name: dags
         persistentVolumeClaim:
           claimName: '{{ include "airflow.fullname" . }}-dags'
+      - name: logs
+        persistentVolumeClaim:
+          claimName: '{{ include "airflow.fullname" . }}-logs'
     extraVolumeMounts:
       - name: dags
         mountPath: /opt/airflow/dags
+      - name: logs
+        mountPath: /opt/airflow/logs
