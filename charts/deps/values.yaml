@@ -48,9 +48,9 @@ opensearch:
   fullnameOverride: opensearch
   nodeGroup: ""
   imagePullPolicy: Always
-  opensearchJavaOpts: "-Xmx2g -Xms2g"  # Match 4Gi container memory
+  opensearchJavaOpts: "-Xmx1g -Xms1g"  
   persistence:
-    size: 10Gi  # Reduced for dev
+    size: 10Gi  
     storageClass: "default"
   protocol: http
   config:
@@ -60,11 +60,11 @@ opensearch:
   singleNode: true
   resources:
     requests:
-      cpu: "1000m"
-      memory: "4Gi"
+      cpu: "500m"
+      memory: "1Gi"
     limits:
       cpu: "2000m"
-      memory: "4Gi"
+      memory: "2Gi"
   extraEnvs:
     - name: OPENSEARCH_INITIAL_ADMIN_PASSWORD
       value: "IXRZqiqBXQSOkSDQ4jL1n2CYPeNQz8IuXNHyQCVsU8="  # Strong random password (no slashes)
@@ -106,7 +106,7 @@ airflow:
     enabled: false
   # Reduce resources for AKS
   workers:
-    replicas: 1
+    replicas: 0
     resources:
       requests:
         memory: "64Mi"
@@ -117,16 +117,16 @@ airflow:
   scheduler:
     resources:
       requests:
-        memory: "64Mi"
-        cpu: "25m"
+        memory: "128Mi"
+        cpu: "100m"
       limits:
         memory: "512Mi"
         cpu: "200m"
   webserver:
     resources:
       requests:
-        memory: "64Mi"
-        cpu: "25m"
+        memory: "128Mi"
+        cpu: "100m"
       limits:
         memory: "512Mi"
         cpu: "200m"
