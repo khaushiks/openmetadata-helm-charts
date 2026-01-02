@@ -566,3 +566,26 @@ hpa:
       target:
         type: Utilization
         averageUtilization: 80
+# --- PVC Configuration: Reuse PVCs from openmetadata-dependencies chart ---
+dags:
+  persistence:
+    enabled: true
+    existingClaim: openmetadata-dependencies-dags  # Reuse PVC from deps
+logs:
+  persistence:
+    enabled: true
+    existingClaim: openmetadata-dependencies-logs  # Reuse PVC from deps
+
+# --- Resource requests for dev/AKS ---
+resources:
+  requests:
+    memory: "256Mi"
+    cpu: "100m"
+  limits:
+    memory: "512Mi"
+    cpu: "200m"
+
+# --- Disable triggerer if not needed (saves resources) ---
+airflow:
+  triggerer:
+    enabled: false
