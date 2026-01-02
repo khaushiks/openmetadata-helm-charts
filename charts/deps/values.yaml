@@ -67,7 +67,7 @@ opensearch:
       memory: "2Gi"
   extraEnvs:
     - name: OPENSEARCH_INITIAL_ADMIN_PASSWORD
-      value: "x7Q!mP9@vR2#kL5$vP8!qR5&tY7*uI1("  # Strong random password
+      value: "IXRZqiqBXQSOkSDQ4jL1n2CYPeNQz8IuXNHyQCVsU8="  # Strong random password
 
 # Airflow configurations for helm dependency
 # you can find more details about this here https://airflow.apache.org/docs/helm-chart/
