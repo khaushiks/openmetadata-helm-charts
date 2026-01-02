@@ -123,4 +123,22 @@ airflow:
         memory: "256Mi"
         cpu: "100m"
       limits:
-        memory: "512
+        memory: "512"
+  airflow:
+  # ... existing config ...
+
+  # DAGs persistence - MUST use "default" for Azure Disk
+  dags:
+    persistence:
+      enabled: true
+      storageClassName: "default"
+      size: 1Gi
+
+  # Logs persistence - CRITICAL: this was missing!
+  logs:
+    persistence:
+      enabled: true
+      storageClassName: "default"
+      size: 1Gi
+
+  # ... rest of config ...
