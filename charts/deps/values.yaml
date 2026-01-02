@@ -163,7 +163,12 @@ airflow:
       size: 1Gi
   # Disable triggerer to save resources
   triggerer:
-    enabled: false
+    enabled: true
+    replicas: 1
+    resources:
+      requests:
+        memory: "256Mi"
+        cpu: "100m"
   # Mount logs volume to all components
   scheduler:
     extraVolumes:
