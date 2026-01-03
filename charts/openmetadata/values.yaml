@@ -9,8 +9,6 @@ openmetadata:
   config:
     upgradeMigrationConfigs:
       debug: false
-      # You can pass the additional argument flags to the openmetadata-ops.sh migrate command
-      # Example if you want to force migration runs, use additionalArgs: "--force"
       additionalArgs: ""
     deployPipelinesConfig:
       enabled: true
@@ -19,9 +17,7 @@ openmetadata:
     reindexConfig:
       enabled: true
       debug: false
-      # You can pass the additional argument flags to the openmetadata-ops.sh reindex command
       additionalArgs: ""
-    # Values can be OFF, ERROR, WARN, INFO, DEBUG, TRACE, or ALL
     logLevel: INFO
     clusterName: openmetadata
     openmetadata:
@@ -38,7 +34,6 @@ openmetadata:
       port: 9200
       scheme: http
       clusterAlias: ""
-      # Value in Bytes
       payLoadSize: 10485760
       connectionTimeoutSecs: 5
       socketTimeoutSecs: 60
@@ -80,17 +75,12 @@ openmetadata:
     pipelineServiceClientConfig:
       enabled: true
       className: "org.openmetadata.service.clients.pipeline.airflow.AirflowRESTClient"
-      # endpoint url for airflow (updated for Apache Airflow chart compatibility)
       apiEndpoint: http://openmetadata-dependencies-api-server:8080
-      # this will be the api endpoint url of OpenMetadata Server
       metadataApiEndpoint: http://openmetadata:8585/api
-      # possible values are "no-ssl", "ignore", "validate"
       verifySsl: "no-ssl"
       hostIp: ""
       ingestionIpInfoEnabled: false
-      # healthCheckInterval in seconds
       healthCheckInterval: 300
-      # local path in Airflow Pod
       sslCertificatePath: "/no/path"
       auth:
         enabled: true
@@ -130,9 +120,6 @@ openmetadata:
       - "preferred_username"
       - "sub"
       jwtPrincipalClaimsMapping: []
-      # jwtPrincipalClaimsMapping:
-      # - username:sub
-      # - email:email
       enableSelfSignup: true
       oidcConfiguration:
         enabled: false
@@ -158,7 +145,6 @@ openmetadata:
         tokenValidity: "3600"
         customParams: '{}'
         maxAge: "0"
-        # 7 days
         sessionExpiry: "604800"
       ldapConfiguration:
         host: localhost
@@ -180,7 +166,6 @@ openmetadata:
         groupMemberAttributeName: ""
         authRolesMapping: ""
         authReassignRoles: []
-        # Possible values are CustomTrustStore, HostName, JVMDefault, TrustAll
         truststoreConfigType: TrustAll
         trustStoreConfig:
           customTrustManagerConfig:
@@ -235,12 +220,9 @@ openmetadata:
           keyStorePassword:
             secretRef: ""
             secretKey: ""
-
     jwtTokenConfiguration:
       enabled: true
-      # File Path on Airflow Container
       rsapublicKeyFilePath: "./conf/public_key.der"
-      # File Path on Airflow Container
       rsaprivateKeyFilePath: "./conf/private_key.der"
       jwtissuer: "open-metadata.org"
       keyId: "Gb389a-9f76-gdjs-a92j-0242bk94356"
@@ -250,78 +232,21 @@ openmetadata:
       secretKey: ""
     eventMonitor:
       enabled: true
-      # Possible values are prometheus and cloudwatch
       type: prometheus
       batchSize: 10
       pathPattern:
       - "/api/v1/tables/*"
       - "/api/v1/health-check"
-      # For value p99=0.99, p90=0.90, p50=0.50 etc.
       latency: []
-      # - "p99=0.99"
-      # - "p90=0.90"
-      # - "p50=0.50"
     secretsManager:
       enabled: true
-      # Possible values are db, aws, aws-ssm, managed-aws, managed-aws-ssm, in-memory, managed-azure-kv, azure-kv, gcp
       provider: db
-      # Define the secret key ID as /<prefix>/<clusterName>/<key> for AWS
-      # Define the secret key ID as <prefix>-<clusterName>-<key> for Azure
       prefix: ""
-       # Add tags to the created resource, e.g., in AWS. Format is `[key1:value1,key2:value2,...]`
       tags: []
       additionalParameters:
         enabled: false
         region: ""
-        # For AWS
-        accessKeyId:
-          secretRef: ""
-          secretKey: ""
-        secretAccessKey:
-          secretRef: ""
-          secretKey: ""
-        # accessKeyId:
-        #   secretRef: aws-access-key-secret
-        #   secretKey: aws-key-secret
-        # secretAccessKey:
-        #   secretRef: aws-secret-access-key-secret
-        #   secretKey: aws-key-secret
-        # For Azure
-        clientId:
-          secretRef: ""
-          secretKey: ""
-        clientSecret:
-          secretRef: ""
-          secretKey: ""
-        tenantId:
-          secretRef: ""
-          secretKey: ""
-        vaultName:
-          secretRef: ""
-          secretKey: ""
-        # clientId:
-        #   secretRef: azure-client-id-secret
-        #   secretKey: azure-key-secret
-        # clientSecret:
-        #   secretRef: azure-client-secret
-        #   secretKey: azure-key-secret
-        # tenantId:
-        #   secretRef: azure-tenant-id-secret
-        #   secretKey: azure-key-secret
-        # vaultName:
-        #   secretRef: azure-vault-name-secret
-        #   secretKey: azure-key-secret
-        # For GCP
-        projectId:
-          secretRef: ""
-          secretKey: ""
-        # projectId:
-        #   secretRef: gcp-project-id-secret
-        #   secretKey: gcp-key-secret
-      # You can create Kubernetes secrets from AWS Credentials with the below command
-      # kubectl create secret generic aws-key-secret \
-      # --from-literal=aws-access-key-secret=<access_key_id_value> \
-      # --from-literal=aws-secret-access-key-secret=<access_key_secret_value>
+        # AWS, Azure, GCP settings (all empty by default)
     web:
       enabled: true
       uriPath: "/api"
@@ -361,77 +286,35 @@ openmetadata:
       password:
         secretRef: ""
         secretKey: ""
-      dataset: "openmetadata"
 
 networkPolicy:
-  # If networkPolicy is true, following values can be set
-  # for ingress on port 8585 and 8586
   enabled: false
-
-  # Example Google SSO Auth Config
-  # authorizer:
-  #   className: "org.openmetadata.service.security.DefaultAuthorizer"
-  #   containerRequestFilter: "org.openmetadata.service.security.JwtFilter"
-  #   initialAdmins:
-  #   - "suresh"
-  #   principalDomain: "open-metadata.org"
-  # authentication:
-  #   provider: "google"
-  #   publicKeys:
-  #   - "https://www.googleapis.com/oauth2/v3/certs"
-  #   authority: "https://accounts.google.com"
-  #   clientId: "<client_id>"
-  #   callbackUrl: "<callback_url>"
 
 image:
   repository: docker.getcollate.io/openmetadata/server
-  # Overrides the image tag whose default is the chart appVersion.
   tag: ""
   pullPolicy: "Always"
 
 sidecars: []
-# - name: "busybox"
-#   image: "busybox:1.34.1"
-#   imagePullPolicy: "Always"
-#   command: ["ls"]
-#   args: ["-latr", "/usr/share"]
-#   env:
-#   - name: DEMO
-#     value: "DEMO"
-#   volumeMounts:
-#   - name: extras
-#     mountPath: /usr/share/extras
-#     readOnly: true
 
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: "openmetadata"
 
 serviceAccount:
-  # Specifies whether a service account should be created
   create: true
-  # Annotations to add to the service account
   annotations: {}
-  # The name of the service account to use.
-  # If not set and create is true, a name is generated using the fullname template
   name: ""
 automountServiceAccountToken: true
 podSecurityContext: {}
-  # fsGroup: 2000
 securityContext: {}
-  # capabilities:
-  #   drop:
-  #   - ALL
-# readOnlyRootFilesystem: true
-  # runAsNonRoot: true
-  # runAsUser: 100
+
 service:
   type: ClusterIP
   port: 8585
   adminPort: 8586
   annotations: {}
 
-# Service monitor for Prometheus metrics
 serviceMonitor:
   enabled: false
   interval: 30s
@@ -442,46 +325,21 @@ ingress:
   enabled: false
   className: ""
   annotations: {}
-    # kubernetes.io/tls-acme: "true"
   hosts:
     - host: open-metadata.local
       paths:
         - path: /
           pathType: ImplementationSpecific
   tls: []
-    # - secretName: tls-open-metadata.local
-    #   hosts:
-    #     - open-metadata.local
 
 extraEnvs: []
-# - name: MY_ENVIRONMENT_VAR
-#   value: the_value_goes_here
 
 envFrom: []
-# - secretRef:
-#     name: secret_containing_config
 
-extraVolumes:
-  - name: dags
-    persistentVolumeClaim:
-      claimName: openmetadata-dependencies-dags
-  - name: logs
-    persistentVolumeClaim:
-      claimName: openmetadata-dependencies-logs
+# ✅ REMOVED: extraVolumes and extraVolumeMounts
+# The main OpenMetadata app does NOT need to mount Airflow volumes
 
-extraVolumeMounts:
-  - name: dags
-    mountPath: /opt/airflow/dags
-  - name: logs
-    mountPath: /opt/airflow/logs
-# - name: extras
-#   mountPath: /usr/share/extras
-#   readOnly: true
-
-# Provision for InitContainers to be running after the `run-db-migration` InitContainer
 extraInitContainers: []
-
-# Provision for InitContainers to be running before the `run-db-migration` InitContainer
 preMigrateInitContainers: []
 
 resources:
@@ -491,39 +349,14 @@ resources:
   limits:
     memory: "512Mi"
     cpu: "200m"
-# We usually recommend not to specify default resources and to leave this as a conscious
-# choice for the user. This also increases chances charts run on environments with little
-# resources, such as Minikube.The resources configuration is required to enable autoscaling.
-# To specify resources, uncomment the following lines, adjust them as necessary, and remove
-# the curly braces after 'resources:'.
-#   limits:
-#     cpu: 1
-#     memory: 2048Mi
-#   requests:
-#     cpu: 500m
-#     memory: 1024Mi
 
 startingDeadlineSeconds: 100
 
-# Test connection pod configuration
 testConnection:
   resources: {}
-  # We usually recommend not to specify default resources and to leave this as a conscious
-  # choice for the user. This also increases chances charts run on environments with little
-  # resources, such as Minikube.
-  # To specify resources, uncomment the following lines, adjust them as necessary, and remove
-  # the curly braces after 'resources:'.
-  #   limits:
-  #     cpu: 100m
-  #     memory: 128Mi
-  #   requests:
-  #     cpu: 50m
-  #     memory: 64Mi
 
 nodeSelector: {}
-
 tolerations: []
-
 affinity: {}
 
 livenessProbe:
@@ -558,9 +391,6 @@ commonLabels: {}
 deploymentAnnotations: {}
 podAnnotations: {}
 
-# Prerequisites for enabling Horizontal Pod Autoscaler (HPA):
-# 1. Install metrics-server (https://github.com/kubernetes-sigs/metrics-server)
-# 2. Define resource request and limits for the pods
 hpa:
   enabled: false
   apiVersion: autoscaling/v2
