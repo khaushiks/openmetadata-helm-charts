@@ -343,11 +343,11 @@ preMigrateInitContainers: []
 
 resources:
   requests:
-    memory: "1Gi"
-    cpu: "0.5"
+    memory: "256Mi"
+    cpu: "100M"
   limits:
-    memory: "2Gi"
-    cpu: "1"
+    memory: "512Mi"
+    cpu: "200M"
 
 startingDeadlineSeconds: 100
 
