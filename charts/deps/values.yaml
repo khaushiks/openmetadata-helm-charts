@@ -73,10 +73,10 @@ opensearch:
 # you can find more details about this here https://airflow.apache.org/docs/helm-chart/
 airflow:
   dagProcessor:
-    enabled: false   # ← Disable temporarily
+    enabled: true   # ← Disable temporarily
 
   statsd:
-    enabled: false   # ← Disable to reduce pod count
+    enabled: true   # ← Disable to reduce pod count
   enabled: true
   webserverSecretKey: "a5f8c3e2d1b9a7f6e4c3b2a1f9e8d7c6b5a4f3e2d1c9b8a7f6e5d4c3b2a1f0e9"
   images:
