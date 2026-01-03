@@ -193,10 +193,10 @@ airflow:
     extraVolumes:
       - name: dags
         persistentVolumeClaim:
-          claimName: '{{ include "airflow.fullname" . }}-dags'
+          claimName: openmetadata-dependencies-dags
       - name: logs
         persistentVolumeClaim:
-          claimName: '{{ include "airflow.fullname" . }}-logs'
+          claimName: openmetadata-dependencies-logs
     extraVolumeMounts:
       - name: dags
         mountPath: /opt/airflow/dags
