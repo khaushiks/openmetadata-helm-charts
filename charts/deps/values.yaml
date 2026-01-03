@@ -163,7 +163,6 @@ airflow:
       enabled: true
       storageClassName: "default"
       size: 1Gi
-      defaultMode: 0777
   triggerer:
     enabled: false
   scheduler:
