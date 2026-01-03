@@ -158,6 +158,7 @@ airflow:
       enabled: true
       storageClassName: "default"
       size: 1Gi
+      accessMode: ReadWriteOnce
   logs:
     persistence:
       enabled: true
