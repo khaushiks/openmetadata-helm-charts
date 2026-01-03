@@ -97,7 +97,7 @@ openmetadata:
       className: "org.openmetadata.service.security.DefaultAuthorizer"
       containerRequestFilter: "org.openmetadata.service.security.JwtFilter"
       initialAdmins:
-        - "admin"
+        - "admin@example.com"
       allowedEmailRegistrationDomains:
         - "all"
       principalDomain: "open-metadata.org"
@@ -288,7 +288,9 @@ openmetadata:
 
 networkPolicy:
   enabled: false
-
+extraEnvs:
+  - name: OM_INITIAL_ADMIN_EMAIL
+    value: "admin@example.com"
 image:
   repository: docker.getcollate.io/openmetadata/server
   tag: ""
