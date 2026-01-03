@@ -97,9 +97,9 @@ openmetadata:
       className: "org.openmetadata.service.security.DefaultAuthorizer"
       containerRequestFilter: "org.openmetadata.service.security.JwtFilter"
       initialAdmins:
-      - "admin"
+        - "admin"
       allowedEmailRegistrationDomains:
-      - "all"
+        - "all"
       principalDomain: "open-metadata.org"
       allowedDomains: []
       enforcePrincipalDomain: false
@@ -110,15 +110,15 @@ openmetadata:
       clientType: public
       provider: "basic"
       publicKeys:
-      - "http://openmetadata:8585/api/v1/system/config/jwks"
+        - "http://openmetadata:8585/api/v1/system/config/jwks"
       authority: "https://accounts.google.com"
       clientId: ""
       callbackUrl: ""
       responseType: id_token
       jwtPrincipalClaims:
-      - "email"
-      - "preferred_username"
-      - "sub"
+        - "email"
+        - "preferred_username"
+        - "sub"
       jwtPrincipalClaimsMapping: []
       enableSelfSignup: true
       oidcConfiguration:
@@ -235,8 +235,8 @@ openmetadata:
       type: prometheus
       batchSize: 10
       pathPattern:
-      - "/api/v1/tables/*"
-      - "/api/v1/health-check"
+        - "/api/v1/tables/*"
+        - "/api/v1/health-check"
       latency: []
     secretsManager:
       enabled: true
@@ -246,7 +246,6 @@ openmetadata:
       additionalParameters:
         enabled: false
         region: ""
-        # AWS, Azure, GCP settings (all empty by default)
     web:
       enabled: true
       uriPath: "/api"
@@ -336,8 +335,8 @@ extraEnvs: []
 
 envFrom: []
 
-# ✅ REMOVED: extraVolumes and extraVolumeMounts
-# The main OpenMetadata app does NOT need to mount Airflow volumes
+# ⚠️ DO NOT add extraVolumes or extraVolumeMounts for Airflow PVCs
+# They are managed entirely by openmetadata-dependencies
 
 extraInitContainers: []
 preMigrateInitContainers: []
@@ -398,15 +397,15 @@ hpa:
   maxReplicas: 5
   behavior: {}
   metrics:
-  - type: Resource
-    resource:
-      name: cpu
-      target:
-        type: Utilization
-        averageUtilization: 80
-  - type: Resource
-    resource:
-      name: memory
-      target:
-        type: Utilization
-        averageUtilization: 80
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 80
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 80
