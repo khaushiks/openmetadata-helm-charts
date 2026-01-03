@@ -373,9 +373,9 @@ readinessProbe:
     path: /api/v1/system/health
     port: http
 startupProbe:
-  periodSeconds: 90
-  failureThreshold: 15
-  successThreshold: 12
+  initialDelaySeconds: 90
+  periodSeconds: 15
+  failureThreshold: 12
   successThreshold: 1
   httpGet:
     path: /healthcheck
