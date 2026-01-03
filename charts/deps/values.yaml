@@ -24,7 +24,7 @@ mysql:
   primary:
     extraFlags: "--sort_buffer_size=10M"
     persistence:
-      size: 10Gi  # Reduced for dev
+      size: 10Gi
       storageClass: "default"
     service:
       nodePort: 3306
@@ -48,7 +48,7 @@ opensearch:
   fullnameOverride: opensearch
   nodeGroup: ""
   imagePullPolicy: Always
-  opensearchJavaOpts: "-Xmx2g -Xms2g"  # Aligned with 4Gi container memory
+  opensearchJavaOpts: "-Xmx1536m -Xms1536m"  # Reduced for 2Gi container
   persistence:
     size: 10Gi
     storageClass: "default"
@@ -60,14 +60,14 @@ opensearch:
   singleNode: true
   resources:
     requests:
+      cpu: "500m"
+      memory: "1536Mi"
+    limits:
       cpu: "1000m"
       memory: "2Gi"
-    limits:
-      cpu: "2000m"
-      memory: "4Gi"
   extraEnvs:
     - name: OPENSEARCH_INITIAL_ADMIN_PASSWORD
-      value: "IXRZqiqBXQSOkSDQ4jL1n2CYPeNQz8IuXNHyQCVsU8="  # Strong, no slashes
+      value: "IXRZqiqBXQSOkSDQ4jL1n2CYPeNQz8IuXNHyQCVsU8="
 
 # Airflow configurations for helm dependency
 # you can find more details about this here https://airflow.apache.org/docs/helm-chart/
@@ -99,41 +99,44 @@ airflow:
   postgresql:
     enabled: false
   workers:
-    replicas: 0  # OK for KubernetesExecutor
+    replicas: 0
     resources:
       requests:
         memory: "64Mi"
         cpu: "25m"
       limits:
-        memory: "256Mi"
+        memory: "128Mi"
         cpu: "100m"
   scheduler:
     resources:
       requests:
+        memory: "64Mi"
+        cpu: "50m"
+      limits:
         memory: "128Mi"
         cpu: "100m"
-      limits:
-        memory: "256Mi"
-        cpu: "200m"
   webserver:
     resources:
       requests:
+        memory: "64Mi"
+        cpu: "50m"
+      limits:
         memory: "128Mi"
         cpu: "100m"
-      limits:
-        memory: "256Mi"
-        cpu: "200m"
   statsd:
     resources:
       requests:
+        memory: "32Mi"
+        cpu: "25m"
+      limits:
         memory: "64Mi"
         cpu: "50m"
   redis:
     enabled: false
     resources:
       requests:
-        memory: "64Mi"
-        cpu: "50m"
+        memory: "32Mi"
+        cpu: "25m"
   flower:
     enabled: false
   data:
@@ -157,7 +160,6 @@ airflow:
       size: 1Gi
   triggerer:
     enabled: false
-  # Mount logs volume to all components that require it
   scheduler:
     extraVolumes:
       - name: logs
