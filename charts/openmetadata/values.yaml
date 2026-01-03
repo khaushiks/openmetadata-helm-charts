@@ -298,7 +298,7 @@ sidecars: []
 
 imagePullSecrets: []
 nameOverride: ""
-fullnameOverride: "open"
+fullnameOverride: "openmetadata"
 
 serviceAccount:
   create: true
