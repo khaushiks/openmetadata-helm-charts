@@ -343,11 +343,11 @@ preMigrateInitContainers: []
 
 resources:
   requests:
-    memory: "256Mi"
-    cpu: "100m"
+    memory: "2Gi"
+    cpu: "1"
   limits:
-    memory: "512Mi"
-    cpu: "200m"
+    memory: "4Gi"
+    cpu: "2"
 
 startingDeadlineSeconds: 100
 
@@ -373,9 +373,9 @@ readinessProbe:
     path: /api/v1/system/health
     port: http
 startupProbe:
-  periodSeconds: 60
-  failureThreshold: 5
-  successThreshold: 1
+  periodSeconds: 90
+  failureThreshold: 15
+  successThreshold: 12
   httpGet:
     path: /healthcheck
     port: http-admin
