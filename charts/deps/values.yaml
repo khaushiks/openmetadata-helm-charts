@@ -150,7 +150,7 @@ airflow:
       sslmode: disable
   dags:
     persistence:
-      enabled: true
+      enabled: false
       storageClassName: "default"
       size: 1Gi
   logs:
