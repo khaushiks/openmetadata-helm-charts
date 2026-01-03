@@ -48,9 +48,9 @@ opensearch:
   fullnameOverride: opensearch
   nodeGroup: ""
   imagePullPolicy: Always
-  opensearchJavaOpts: "-Xmx1g -Xms1g"  
+  opensearchJavaOpts: "-Xmx2g -Xms2g"  # Aligned with 4Gi container memory
   persistence:
-    size: 10Gi  
+    size: 10Gi
     storageClass: "default"
   protocol: http
   config:
@@ -60,30 +60,26 @@ opensearch:
   singleNode: true
   resources:
     requests:
-      cpu: "500m"
-      memory: "1Gi"
+      cpu: "1000m"
+      memory: "2Gi"
     limits:
       cpu: "2000m"
-      memory: "2Gi"
+      memory: "4Gi"
   extraEnvs:
     - name: OPENSEARCH_INITIAL_ADMIN_PASSWORD
-      value: "IXRZqiqBXQSOkSDQ4jL1n2CYPeNQz8IuXNHyQCVsU8="  # Strong random password (no slashes)
+      value: "IXRZqiqBXQSOkSDQ4jL1n2CYPeNQz8IuXNHyQCVsU8="  # Strong, no slashes
 
 # Airflow configurations for helm dependency
 # you can find more details about this here https://airflow.apache.org/docs/helm-chart/
 airflow:
   enabled: true
-  # Static secret key for Airflow webserver
   webserverSecretKey: "a5f8c3e2d1b9a7f6e4c3b2a1f9e8d7c6b5a4f3e2d1c9b8a7f6e5d4c3b2a1f0e9"
-  # Use OpenMetadata Airflow image with Airflow 3
   images:
     airflow:
       repository: docker.getcollate.io/openmetadata/ingestion
       tag: 1.11.4
       pullPolicy: "IfNotPresent"
-  # Use KubernetesExecutor for production
   executor: "KubernetesExecutor"
-  # Environment variables
   env:
     - name: AIRFLOW__API__AUTH_BACKENDS
       value: "airflow.api.auth.backend.session,airflow.api.auth.backend.basic_auth"
@@ -91,7 +87,6 @@ airflow:
       value: "/opt/airflow/dags"
     - name: _PIP_ADDITIONAL_REQUIREMENTS
       value: "apache-airflow-providers-fab==2.4.4"
-  # Create admin user
   webserver:
     defaultUser:
       enabled: true
@@ -101,26 +96,24 @@ airflow:
       firstName: Admin
       lastName: User
       password: admin
-  # Disable internal PostgreSQL, use external MySQL
   postgresql:
     enabled: false
-  # Reduce resources for AKS
   workers:
-    replicas: 0
+    replicas: 0  # OK for KubernetesExecutor
     resources:
       requests:
         memory: "64Mi"
         cpu: "25m"
       limits:
-        memory: "512Mi"
-        cpu: "200m"
+        memory: "256Mi"
+        cpu: "100m"
   scheduler:
     resources:
       requests:
         memory: "128Mi"
         cpu: "100m"
       limits:
-        memory: "512Mi"
+        memory: "256Mi"
         cpu: "200m"
   webserver:
     resources:
@@ -128,7 +121,7 @@ airflow:
         memory: "128Mi"
         cpu: "100m"
       limits:
-        memory: "512Mi"
+        memory: "256Mi"
         cpu: "200m"
   statsd:
     resources:
@@ -141,10 +134,8 @@ airflow:
       requests:
         memory: "64Mi"
         cpu: "50m"
-  # Disable Flower
   flower:
     enabled: false
-  # Configure external MySQL
   data:
     metadataConnection:
       user: airflow_user
@@ -154,22 +145,19 @@ airflow:
       port: 3306
       db: airflow_db
       sslmode: disable
-  # DAGs persistence - MUST use "default" for Azure Disk
   dags:
     persistence:
       enabled: true
       storageClassName: "default"
       size: 1Gi
-  # Logs persistence - MUST use "default" for Azure Disk
   logs:
     persistence:
       enabled: true
       storageClassName: "default"
       size: 1Gi
-  # Disable triggerer to save resources
   triggerer:
     enabled: false
-  # Mount logs volume to all components
+  # Mount logs volume to all components that require it
   scheduler:
     extraVolumes:
       - name: logs
@@ -194,7 +182,6 @@ airflow:
     extraVolumeMounts:
       - name: logs
         mountPath: /opt/airflow/logs
-  # API server needs DAGs and logs volumes
   apiServer:
     extraVolumes:
       - name: dags
