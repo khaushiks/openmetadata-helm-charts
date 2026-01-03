@@ -298,7 +298,7 @@ sidecars: []
 
 imagePullSecrets: []
 nameOverride: ""
-fullnameOverride: "openmetadata"
+fullnameOverride: "open"
 
 serviceAccount:
   create: true
@@ -343,11 +343,11 @@ preMigrateInitContainers: []
 
 resources:
   requests:
-    memory: "256Mi"
-    cpu: "100m"
+    memory: "1.5Gi"
+    cpu: "0.8"
   limits:
-    memory: "512Mi"
-    cpu: "200m"
+    memory: "3Gi"
+    cpu: "1.5"
 
 startingDeadlineSeconds: 100
 
