@@ -163,6 +163,7 @@ airflow:
       enabled: true
       storageClassName: "default"
       size: 1Gi
+      accessMode: ReadWriteOnce
   triggerer:
     enabled: false
   scheduler:
