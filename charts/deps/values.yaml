@@ -77,7 +77,7 @@ airflow:
   enabled: false
   executor: "KubernetesExecutor"
   statsd:
-  enabled: false
+    enabled: false
   postgresql:
     enabled: false
   redis:
