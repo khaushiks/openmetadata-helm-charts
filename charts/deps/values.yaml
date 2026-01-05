@@ -42,6 +42,7 @@ opensearch:
     enabled: true
     size: 10Gi
     storageClass: "azurefile-csi"
+    accessMode: ReadWriteMany
   protocol: http
   config:
     opensearch.yml: |
@@ -84,11 +85,13 @@ airflow:
     persistence:
       enabled: true
       storageClassName: "azurefile-csi"
+      accessMode: ReadWriteMany
       size: 1Gi
   logs:
     persistence:
       enabled: true
       storageClassName: "azurefile-csi"
+      accessMode: ReadWriteMany
       size: 1Gi
   workers:
     replicas: 0
