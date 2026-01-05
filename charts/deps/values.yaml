@@ -41,7 +41,7 @@ opensearch:
   persistence:
     enabled: true
     size: 10Gi
-    storageClass: "default"
+    storageClass: "azurefile-csi"
   protocol: http
   config:
     opensearch.yml: |
@@ -83,12 +83,12 @@ airflow:
   dags:
     persistence:
       enabled: true
-      storageClassName: "default"
+      storageClassName: "azurefile-csi"
       size: 1Gi
   logs:
     persistence:
       enabled: true
-      storageClassName: "default"
+      storageClassName: "azurefile-csi"
       size: 1Gi
   workers:
     replicas: 0
