@@ -76,6 +76,8 @@ opensearch:
 airflow:
   enabled: false
   executor: "KubernetesExecutor"
+  statsd:
+  enabled: false
   postgresql:
     enabled: false
   redis:
