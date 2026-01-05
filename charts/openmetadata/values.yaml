@@ -27,7 +27,7 @@ openmetadata:
       idleThreadTimeout: "1 minute"
     elasticsearch:
       enabled: true
-      host: opensearch
+      host: opensearch-cluster-master
       searchType: opensearch
       port: 9200
       scheme: http
