@@ -105,119 +105,14 @@ openmetadata:
       useRolesFromProvider: false
     authentication:
       enabled: true
-      clientType: public
       provider: "basic"
       publicKeys:
         - "http://openmetadata:8585/api/v1/system/config/jwks"
-      authority: "https://accounts.google.com"
-      clientId: ""
-      callbackUrl: ""
-      responseType: id_token
       jwtPrincipalClaims:
         - "email"
         - "preferred_username"
         - "sub"
-      jwtPrincipalClaimsMapping: []
       enableSelfSignup: true
-      oidcConfiguration:
-        enabled: false
-        oidcType: ""
-        clientId:
-          secretRef: oidc-secrets
-          secretKey: openmetadata-oidc-client-id
-        clientSecret:
-          secretRef: oidc-secrets
-          secretKey: openmetadata-oidc-client-secret
-        scope: "openid email profile"
-        discoveryUri: ""
-        useNonce: true
-        preferredJwsAlgorithm: RS256
-        responseType: code
-        promptType: "consent"
-        disablePkce: true
-        callbackUrl: http://openmetadata:8585/callback
-        serverUrl: http://openmetadata:8585
-        clientAuthenticationMethod: client_secret_post
-        tenant: ""
-        maxClockSkew: ""
-        tokenValidity: "3600"
-        customParams: '{}'
-        maxAge: "0"
-        sessionExpiry: "604800"
-      ldapConfiguration:
-        host: localhost
-        port: 10636
-        dnAdminPrincipal: "cn=admin,dc=example,dc=com"
-        dnAdminPassword:
-          secretRef: ldap-admin-secret
-          secretKey: openmetadata-ldap-secret
-        userBaseDN: "ou=people,dc=example,dc=com"
-        mailAttributeName: email
-        maxPoolSize: 3
-        sslEnabled: false
-        groupBaseDN: ""
-        roleAdminName: ""
-        allAttributeName: ""
-        usernameAttributeName: ""
-        groupAttributeName: ""
-        groupAttributeValue: ""
-        groupMemberAttributeName: ""
-        authRolesMapping: ""
-        authReassignRoles: []
-        truststoreConfigType: TrustAll
-        trustStoreConfig:
-          customTrustManagerConfig:
-            trustStoreFilePath: ""
-            trustStoreFilePassword:
-              secretRef: ""
-              secretKey: ""
-            trustStoreFileFormat: ""
-            verifyHostname: true
-            examineValidityDates: true
-          hostNameConfig:
-            allowWildCards: false
-            acceptableHostNames: []
-          jvmDefaultConfig:
-            verifyHostname: true
-          trustAllConfig:
-            examineValidityDates: true
-      saml:
-        debugMode: false
-        idp:
-          entityId: ""
-          ssoLoginUrl: ""
-          idpX509Certificate:
-            secretRef: ""
-            secretKey: ""
-          authorityUrl: "http://openmetadata:8585/api/v1/saml/login"
-          nameId: "urn:oasis:names:tc:SAML:2.0:nameid-format:emailAddress"
-        sp:
-          entityId: "http://openmetadata:8585/api/v1/saml/metadata"
-          acs: "http://openmetadata:8585/api/v1/saml/acs"
-          spX509Certificate:
-            secretRef: ""
-            secretKey: ""
-          spPrivateKey:
-            secretRef: ""
-            secretKey: ""
-          callback: "http://openmetadata:8585/saml/callback"
-        security:
-          strictMode: false
-          validateXml: false
-          tokenValidity: 3600
-          sendEncryptedNameId: false
-          sendSignedAuthRequest: false
-          signSpMetadata: false
-          wantMessagesSigned: false
-          wantAssertionsSigned: false
-          wantAssertionEncrypted: false
-          keyStoreFilePath: ""
-          keyStoreAlias:
-            secretRef: ""
-            secretKey: ""
-          keyStorePassword:
-            secretRef: ""
-            secretKey: ""
     jwtTokenConfiguration:
       enabled: true
       rsapublicKeyFilePath: "./conf/public_key.der"
@@ -289,7 +184,9 @@ networkPolicy:
 
 extraEnvs:
   - name: OM_INITIAL_ADMIN_EMAIL
-    value: "admin@example.com"
+    value: "admin@cloudmasa.com"
+  - name: OM_INITIAL_ADMIN_PASSWORD
+    value: "OpenMeta2026!"
 
 image:
   repository: docker.getcollate.io/openmetadata/server
