@@ -1,14 +1,14 @@
-# Default values for deps.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
+ Default values for deps.
+ This is a YAML-formatted file.
+ Declare variables to be passed into your templates.
 
 global:
   security:
     allowInsecureImages: true
 
-# ----------------------------
-# MySQL (Bitnami)
-# ----------------------------
+ ----------------------------
+ MySQL (Bitnami)
+ ----------------------------
 mysql:
   enabled: true
   fullnameOverride: "mysql"
@@ -19,8 +19,8 @@ mysql:
     tag: 8.0.37-debian-12-r2
     pullPolicy: "Always"
   auth:
-    # Do NOT set rootPassword unless absolutely needed
-    # OpenMetadata only uses openmetadata_user
+     Do NOT set rootPassword unless absolutely needed
+     OpenMetadata only uses openmetadata_user
     username: openmetadata_user
     password: openmetadata_password
     database: openmetadata_db
@@ -29,14 +29,14 @@ mysql:
     persistence:
       enabled: true
       size: 10Gi
-      storageClass: "default"  # Matches your AKS default SC
+      storageClass: "default"   Matches your AKS default SC
     service:
       type: ClusterIP
       port: 3306
 
-# ----------------------------
-# OpenSearch
-# ----------------------------
+ ----------------------------
+ OpenSearch
+ ----------------------------
 opensearch:
   enabled: true
   clusterName: opensearch
@@ -64,48 +64,41 @@ opensearch:
     - name: OPENSEARCH_INITIAL_ADMIN_PASSWORD
       value: "IXRZqiqBXQSOkSDQ4jL1n2CYPeNQz8IuXNHyQCVsU8="
 
-# ----------------------------
-# Airflow — DISABLED TEMPORARILY
-# ----------------------------
-airflow:
-  enabled: false
-
-# Optional: If you later want to enable Airflow, uncomment and adjust
-# airflow:
-#   enabled: true
-#   executor: "KubernetesExecutor"
-#   postgresql:
-#     enabled: false
-#   redis:
-#     enabled: false
-#   data:
-#     metadataConnection:
-#       protocol: mysql
-#       host: mysql
-#       port: 3306
-#       user: airflow_user
-#       pass: airflow_pass
-#       db: airflow_db
-#       sslmode: disable
-#   webserver:
-#     defaultUser:
-#       enabled: true
-#       username: admin
-#       password: admin
-#       email: admin@openmetadata.org
-#   dags:
-#     persistence:
-#       enabled: true
-#       storageClassName: "default"
-#       size: 1Gi
-#   logs:
-#     persistence:
-#       enabled: true
-#       storageClassName: "default"
-#       size: 1Gi
-#   workers:
-#     replicas: 0
-#   triggerer:
-#     enabled: false
-#   flower:
-#     enabled: false
+ airflow:
+   enabled: true
+   executor: "KubernetesExecutor"
+   postgresql:
+     enabled: false
+   redis:
+     enabled: false
+   data:
+     metadataConnection:
+       protocol: mysql
+       host: mysql
+       port: 3306
+       user: airflow_user
+       pass: airflow_pass
+       db: airflow_db
+       sslmode: disable
+   webserver:
+     defaultUser:
+       enabled: true
+       username: admin
+       password: admin
+       email: admin@openmetadata.org
+   dags:
+     persistence:
+       enabled: true
+       storageClassName: "default"
+       size: 1Gi
+   logs:
+     persistence:
+       enabled: true
+       storageClassName: "default"
+       size: 1Gi
+   workers:
+     replicas: 0
+   triggerer:
+     enabled: false
+   flower:
+     enabled: false
