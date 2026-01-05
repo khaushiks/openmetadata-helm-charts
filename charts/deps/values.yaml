@@ -74,7 +74,7 @@ opensearch:
       value: "IXRZqiqBXQSOkSDQ4jL1n2CYPeNQz8IuXNHyQCVsU8="
 
 airflow:
-  enabled: true
+  enabled: false
   executor: "KubernetesExecutor"
   postgresql:
     enabled: false
