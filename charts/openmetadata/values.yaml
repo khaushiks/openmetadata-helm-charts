@@ -3,8 +3,6 @@
 # Declare variables to be passed into your templates.
 replicaCount: 1
 
-# Overrides the openmetadata config file with the help of Environment Variables
-# Below are defaults as per openmetadata-dependencies Helm Chart Values
 openmetadata:
   config:
     upgradeMigrationConfigs:
@@ -288,16 +286,17 @@ openmetadata:
 
 networkPolicy:
   enabled: false
+
 extraEnvs:
   - name: OM_INITIAL_ADMIN_EMAIL
     value: "admin@example.com"
+
 image:
   repository: docker.getcollate.io/openmetadata/server
   tag: ""
   pullPolicy: "Always"
 
 sidecars: []
-
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: "openmetadata"
@@ -334,12 +333,7 @@ ingress:
   tls: []
 
 extraEnvs: []
-
 envFrom: []
-
-# ⚠️ DO NOT add extraVolumes or extraVolumeMounts for Airflow PVCs
-# They are managed entirely by openmetadata-dependencies
-
 extraInitContainers: []
 preMigrateInitContainers: []
 
@@ -367,6 +361,7 @@ livenessProbe:
   httpGet:
     path: /api/v1/system/health
     port: http
+
 readinessProbe:
   initialDelaySeconds: 60
   periodSeconds: 30
@@ -374,6 +369,7 @@ readinessProbe:
   httpGet:
     path: /api/v1/system/health
     port: http
+
 startupProbe:
   initialDelaySeconds: 90
   periodSeconds: 15
