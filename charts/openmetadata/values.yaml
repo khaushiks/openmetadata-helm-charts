@@ -3,7 +3,7 @@
 # Declare variables to be passed into your templates.
 replicaCount: 1
 
-openmetadata:
+openmeta
   config:
     upgradeMigrationConfigs:
       debug: false
@@ -95,7 +95,7 @@ openmetadata:
       className: "org.openmetadata.service.security.DefaultAuthorizer"
       containerRequestFilter: "org.openmetadata.service.security.JwtFilter"
       initialAdmins:
-        - "admin@example.com"
+        - "admin@cloudmasa.com"
       allowedEmailRegistrationDomains:
         - "all"
       principalDomain: "open-metadata.org"
@@ -182,11 +182,21 @@ openmetadata:
 networkPolicy:
   enabled: false
 
+# ✅ Key: Define initial admin + override any leftover auth env vars
 extraEnvs:
   - name: OM_INITIAL_ADMIN_EMAIL
     value: "admin@cloudmasa.com"
   - name: OM_INITIAL_ADMIN_PASSWORD
     value: "OpenMeta2026!"
+  # 🔒 Explicitly clear unused auth fields to prevent secret drift
+  - name: AUTHENTICATION_AUTHORITY
+    value: ""
+  - name: AUTHENTICATION_CLIENT_ID
+    value: ""
+  - name: AUTHENTICATION_CALLBACK_URL
+    value: ""
+  - name: AUTHENTICATION_RESPONSE_TYPE
+    value: ""
 
 image:
   repository: docker.getcollate.io/openmetadata/server
@@ -229,8 +239,6 @@ ingress:
           pathType: ImplementationSpecific
   tls: []
 
-extraEnvs: []
-envFrom: []
 extraInitContainers: []
 preMigrateInitContainers: []
 
