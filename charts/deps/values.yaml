@@ -37,13 +37,12 @@ mysql:
     service:
       type: ClusterIP
       port: 3306
-    # 👇 Add this to fix the "Unhealthy" status:
     startupProbe:
       enabled: false
     livenessProbe:
-      enabled: false  # Optional: disable if still having issues
+      enabled: false
     readinessProbe:
-      enabled: true   # Keep this for service discovery
+      enabled: true
 
 opensearch:
   enabled: true
@@ -76,8 +75,6 @@ opensearch:
 airflow:
   enabled: false
   executor: "KubernetesExecutor"
-  statsd:
-    enabled: false
   postgresql:
     enabled: false
   redis:
@@ -115,3 +112,7 @@ airflow:
     enabled: false
   flower:
     enabled: false
+
+# ✅ CORRECT PLACE FOR statsd: top-level
+statsd:
+  enabled: false
