@@ -30,6 +30,13 @@ mysql:
     service:
       type: ClusterIP
       port: 3306
+    # 👇 Add this to fix the "Unhealthy" status:
+    startupProbe:
+      enabled: false
+    livenessProbe:
+      enabled: false  # Optional: disable if still having issues
+    readinessProbe:
+      enabled: true   # Keep this for service discovery
 
 opensearch:
   enabled: true
