@@ -23,6 +23,13 @@ mysql:
     database: openmetadata_db
   primary:
     extraFlags: "--sort_buffer_size=10M"
+    resources:
+      requests:
+        cpu: "100m"      # Reduced from default 500m
+        memory: "256Mi"  # Reduced from default 512Mi
+      limits:
+        cpu: "500m"
+        memory: "512Mi"
     persistence:
       enabled: true
       size: 10Gi
