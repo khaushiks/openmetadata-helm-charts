@@ -115,11 +115,6 @@ openmetadata:
         - "sub"
       enableSelfSignup: true
       # 🔒 CRITICAL: Explicitly nullify unused fields to prevent Helm/Argo CD drift
-      responseType: ""
-      authority: ""
-      clientId: ""
-      clientType: ""
-      callbackUrl: ""
     jwtTokenConfiguration:
       enabled: true
       rsapublicKeyFilePath: "./conf/public_key.der"
