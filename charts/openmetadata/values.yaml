@@ -1,12 +1,6 @@
 # Default values for OpenMetadata.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
-# -- Auto-create initial admin secret (for dev/testing only!)
-initialAdmin:
-  enabled: true
-  email: "admin@cloudmasa.com"
-  password: "OpenMeta2026!"
-
 replicaCount: 1
 
 openmetadata:
@@ -177,7 +171,7 @@ openmetadata:
       pragma: ""
     rdf:
       enabled: false
-      baseUri: "https://open-metadata.org/"
+      baseUri: "https://open-metadata.org/  "
       storageType: "FUSEKI"
       remoteEndpoint: "http://localhost:3030/openmetadata"
       username: ""
@@ -189,19 +183,20 @@ networkPolicy:
   enabled: false
 
 # ✅ Key: Define initial admin + override any leftover auth env vars
-# extraEnvs:
-#   - name: OM_INITIAL_ADMIN_EMAIL
-#     value: "admin@cloudmasa.com"
-#   - name: OM_INITIAL_ADMIN_PASSWORD
-#     value: "OpenMeta2026!"
-#   - name: AUTHENTICATION_AUTHORITY
-#     value: ""
-#   - name: AUTHENTICATION_CLIENT_ID
-#     value: ""
-#   - name: AUTHENTICATION_CALLBACK_URL
-#     value: ""
-#   - name: AUTHENTICATION_RESPONSE_TYPE
-#     value: ""
+extraEnvs:
+  - name: OM_INITIAL_ADMIN_EMAIL
+    value: "admin@cloudmasa.com"
+  - name: OM_INITIAL_ADMIN_PASSWORD
+    value: "OpenMeta2026!"
+  # 🔒 Explicitly clear unused auth fields to prevent secret drift
+  - name: AUTHENTICATION_AUTHORITY
+    value: ""
+  - name: AUTHENTICATION_CLIENT_ID
+    value: ""
+  - name: AUTHENTICATION_CALLBACK_URL
+    value: ""
+  - name: AUTHENTICATION_RESPONSE_TYPE
+    value: ""
 
 image:
   repository: docker.getcollate.io/openmetadata/server
