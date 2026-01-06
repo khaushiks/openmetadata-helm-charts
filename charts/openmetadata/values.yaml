@@ -1,6 +1,12 @@
 # Default values for OpenMetadata.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
+# -- Auto-create initial admin secret (for dev/testing only!)
+initialAdmin:
+  enabled: true
+  email: "admin@cloudmasa.com"
+  password: "OpenMeta2026!"
+
 replicaCount: 1
 
 openmetadata:
@@ -188,7 +194,6 @@ extraEnvs:
     value: "admin@cloudmasa.com"
   - name: OM_INITIAL_ADMIN_PASSWORD
     value: "OpenMeta2026!"
-  # 🔒 Explicitly clear unused auth fields to prevent secret drift
   - name: AUTHENTICATION_AUTHORITY
     value: ""
   - name: AUTHENTICATION_CLIENT_ID
