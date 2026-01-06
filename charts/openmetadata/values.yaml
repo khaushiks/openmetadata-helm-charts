@@ -52,7 +52,7 @@ openmetadata:
           secretKey: openmetadata-elasticsearch-password
     database:
       enabled: true
-      host: mysql
+      host: openmetadata-mysql
       port: 3306
       driverClass: com.mysql.cj.jdbc.Driver
       dbScheme: mysql
