@@ -5,6 +5,9 @@ replicaCount: 1
 
 openmetadata:
   config:
+    admin:
+      email: "vigneshkavivk@gmail.com"
+      password: "Admin@123"
     upgradeMigrationConfigs:
       debug: false
       additionalArgs: ""
