@@ -4,8 +4,6 @@
 replicaCount: 1
 
 openmetadata:
-  initialAdminEmail: "vigneshkavivk@gmail.com"
-  initialAdminPassword: "Admin@123"
 
   config:
     upgradeMigrationConfigs:
