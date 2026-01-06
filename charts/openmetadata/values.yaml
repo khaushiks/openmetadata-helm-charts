@@ -96,7 +96,7 @@ openmetadata:
       className: "org.openmetadata.service.security.DefaultAuthorizer"
       containerRequestFilter: "org.openmetadata.service.security.JwtFilter"
       initialAdmins:
-        - ""
+        - "admin@cloudmasa.com"
       allowedEmailRegistrationDomains:
         - "all"
       principalDomain: "open-metadata.org"
@@ -186,9 +186,9 @@ networkPolicy:
 # ✅ Key: Define initial admin + override any leftover auth env vars
 extraEnvs:
   - name: OM_INITIAL_ADMIN_EMAIL
-    value: ""
+    value: "admin@cloudmasa.com"
   - name: OM_INITIAL_ADMIN_PASSWORD
-    value: ""
+    value: "OpenMeta2026!"
   # 🔒 Explicitly clear unused auth fields to prevent secret drift
   - name: AUTHENTICATION_AUTHORITY
     value: ""
