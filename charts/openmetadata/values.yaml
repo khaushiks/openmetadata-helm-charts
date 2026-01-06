@@ -52,7 +52,7 @@ openmetadata:
           secretKey: openmetadata-elasticsearch-password
     database:
       enabled: true
-      host: openmetadata-mysql
+      host: mysql
       port: 3306
       driverClass: com.mysql.cj.jdbc.Driver
       dbScheme: mysql
@@ -171,7 +171,7 @@ openmetadata:
       pragma: ""
     rdf:
       enabled: false
-      baseUri: "https://open-metadata.org/  "
+      baseUri: "https://open-metadata.org/    "
       storageType: "FUSEKI"
       remoteEndpoint: "http://localhost:3030/openmetadata"
       username: ""
