@@ -59,11 +59,6 @@ spec:
         envFrom:
           - secretRef:
               name: {{ include "OpenMetadata.fullname" . }}-config-secret
-          # ... (other existing secrets)
-        {{- if .Values.initialAdmin.enabled }}
-          - secretRef:
-              name: {{ include "OpenMetadata.fullname" . }}-initial-admin
-        {{- end }}
           - secretRef:
               name: {{ include "OpenMetadata.fullname" . }}-omd-secret
           {{- if .Values.openmetadata.config.database.enabled }}
@@ -158,11 +153,6 @@ spec:
           envFrom:
             - secretRef:
                 name: {{ include "OpenMetadata.fullname" . }}-config-secret
-            # ... (other existing secrets)
-          {{- if .Values.initialAdmin.enabled }}
-            - secretRef:
-                name: {{ include "OpenMetadata.fullname" . }}-initial-admin
-          {{- end }}
             - secretRef:
                 name: {{ include "OpenMetadata.fullname" . }}-omd-secret
             {{- if .Values.openmetadata.config.database.enabled }}
