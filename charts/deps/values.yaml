@@ -16,8 +16,7 @@ mysql:
     tag: 8.0.37-debian-12-r2
     pullPolicy: "Always"
   auth:
-    # Do NOT set rootPassword unless absolutely needed
-    # OpenMetadata only uses openmetadata_user
+    rootPassword: "OpenMeta2026!"     # ✅ REQUIRED for readiness probe
     username: openmetadata_user
     password: openmetadata_password
     database: openmetadata_db
