@@ -60,8 +60,8 @@ openmetadata:
       auth:
         username: openmetadata_user
         password:
-          secretRef: mysql-secrets
-          secretKey: openmetadata-mysql-password
+          secretRef: mysql          # ✅ Bitnami-ன் secret name
+          secretKey: mysql-password # ✅ Bitnami-ன் key name
       dbParams: "allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC"
       maxSize: 50
       minSize: 10
