@@ -96,7 +96,7 @@ openmetadata:
       className: "org.openmetadata.service.security.DefaultAuthorizer"
       containerRequestFilter: "org.openmetadata.service.security.JwtFilter"
       initialAdmins:
-        - "admin@cloudmasa.com"
+        - "admin"
       allowedEmailRegistrationDomains:
         - "all"
       principalDomain: ""
