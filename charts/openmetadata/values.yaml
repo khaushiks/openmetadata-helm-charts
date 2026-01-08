@@ -300,6 +300,7 @@ hpa:
   maxReplicas: 5
   behavior: {}
   metrics:
+    enabled: false
     - type: Resource
       resource:
         name: cpu
