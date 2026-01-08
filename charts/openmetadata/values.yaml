@@ -99,7 +99,7 @@ openmetadata:
         - "admin@cloudmasa.com"
       allowedEmailRegistrationDomains:
         - "all"
-      principalDomain: "open-metadata.org"
+      principalDomain: ""
       allowedDomains: []
       enforcePrincipalDomain: false
       enableSecureSocketConnection: false
