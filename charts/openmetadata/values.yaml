@@ -7,6 +7,7 @@ openmetadata:
 
   config:
     upgradeMigrationConfigs:
+      enabled: false
       debug: false
       additionalArgs: ""
     deployPipelinesConfig:
