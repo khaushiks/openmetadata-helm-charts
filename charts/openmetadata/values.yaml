@@ -96,10 +96,10 @@ openmetadata:
       className: "org.openmetadata.service.security.DefaultAuthorizer"
       containerRequestFilter: "org.openmetadata.service.security.JwtFilter"
       initialAdmins:
-        - "admin"
+        - "admin@openmetadata.org"
       allowedEmailRegistrationDomains:
         - "all"
-      principalDomain: "@openmetadata.org"
+      principalDomain: ""
       allowedDomains: []
       enforcePrincipalDomain: false
       enableSecureSocketConnection: false
