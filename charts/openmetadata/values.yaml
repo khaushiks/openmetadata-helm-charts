@@ -12,7 +12,7 @@ openmetadata:
     deployPipelinesConfig:
       enabled: true
       debug: false
-      additionalArgs: ""
+      additionalArgs: "--skip-migrations"
     reindexConfig:
       enabled: true
       debug: false
