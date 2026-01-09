@@ -92,7 +92,7 @@ airflow:
       enabled: true
       username: admin
       password: admin
-      email: admin
+      email: admin@openmetadata.org
   dags:
     persistence:
       enabled: true
