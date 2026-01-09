@@ -44,7 +44,7 @@ mysql:
       enabled: true
 
 opensearch:
-  enabled: true
+  enabled: false
   clusterName: opensearch
   fullnameOverride: opensearch
   singleNode: true
