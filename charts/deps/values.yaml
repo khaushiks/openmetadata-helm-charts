@@ -69,7 +69,7 @@ opensearch:
       memory: "2Gi"
   extraEnvs:
     - name: OPENSEARCH_INITIAL_ADMIN_PASSWORD
-      value: "$2a$12$JX/vNJn25CfdZms4WX8XmeCK046Dtkf1My8ZJFleKUidluE18zWBa"
+      value: "admin@123"
 
 airflow:
   enabled: false
