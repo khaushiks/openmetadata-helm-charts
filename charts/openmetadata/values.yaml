@@ -6,9 +6,6 @@ replicaCount: 1
 openmetadata:
 
   config:
-    upgradeMigrationConfigs:
-      debug: false
-      additionalArgs: ""
     deployPipelinesConfig:
       enabled: true
       debug: false
