@@ -69,7 +69,7 @@ opensearch:
       memory: "2Gi"
   extraEnvs:
     - name: OPENSEARCH_INITIAL_ADMIN_PASSWORD
-      value: "IXRZqiqBXQSOkSDQ4jL1n2CYPeNQz8IuXNHyQCVsU8="
+      value: "$2a$12$JX/vNJn25CfdZms4WX8XmeCK046Dtkf1My8ZJFleKUidluE18zWBa"
 
 airflow:
   enabled: false
@@ -92,7 +92,7 @@ airflow:
       enabled: true
       username: admin
       password: admin
-      email: admin@cloudmasa.com
+      email: admin
   dags:
     persistence:
       enabled: true
