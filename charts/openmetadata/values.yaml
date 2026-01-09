@@ -72,7 +72,7 @@ openmetadata:
       evictionInterval: 5 minutes
       minIdleTime: 1 minute
     pipelineServiceClientConfig:
-      enabled: true
+      enabled: false
       className: "org.openmetadata.service.clients.pipeline.airflow.AirflowRESTClient"
       apiEndpoint: http://openmetadata-dependencies-api-server:8080
       metadataApiEndpoint: http://openmetadata:8585/api
