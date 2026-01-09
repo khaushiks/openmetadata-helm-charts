@@ -156,7 +156,7 @@ openmetadata:
         preload: "true"
       frameOptions:
         enabled: false
-        option: "SAME_ORIGIN"
+        option: "SAMEORIGIN"
         origin: ""
       contentTypeOptions:
         enabled: false
