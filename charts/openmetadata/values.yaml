@@ -7,9 +7,8 @@ openmetadata:
 
   config:
     upgradeMigrationConfigs:
-      enabled: true
       debug: false
-      additionalArgs: "--skip-migrations"
+      additionalArgs: ""
     deployPipelinesConfig:
       enabled: true
       debug: false
